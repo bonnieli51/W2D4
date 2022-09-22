@@ -135,3 +135,37 @@ def vowel_rotate(str)
     end
     new_word
 end
+
+
+class String
+    def select(&prc)
+        prc ||= nil
+        return "" if prc == nil
+        new_string = ""
+        self.each_char do |char|
+            new_string += char if prc.call(char)
+        end
+        new_string
+    end
+
+    def map!(&prc)
+        self.each_char.with_index do |char,i|
+            self[i] = prc.call(char)
+        end
+        self
+    end
+
+
+end
+
+#RECURSION PROBLEMS
+
+def lucas_sequence(num)
+    return [] if num == 0
+    return [2] if num == 1
+    return [2,1] if num == 2
+    
+    result = lucas_sequence(num-1) #num decreeases and return [2,1]
+    result << (result[-1] + result[-2]) #last 2 ele's sum
+    result   
+end
